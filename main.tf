@@ -68,6 +68,11 @@ resource "libvirt_domain" "terraform" {
 
   cloudinit = element(libvirt_cloudinit_disk.cloud-init-iso.*.id, count.index)
 
+  provisioner "local-exec" {
+    when    = destroy
+    command = "ssh-keygen -R ${self.network_interface.0.addresses.0}"
+  }
+
   network_interface {
     network_name   = "default"
     wait_for_lease = true
