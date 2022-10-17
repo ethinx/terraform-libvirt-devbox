@@ -25,7 +25,7 @@ resource "libvirt_volume" "os-image" {
 }
 
 resource "libvirt_volume" "os-volume" {
-  name           = "os-volume-${var.kind}-${count.index}"
+  name           = "os-volume-${var.project}-${var.kind}-${count.index}"
   pool           = "terraform-${var.project}-${var.kind}"
   size           = var.disk_size
   count          = var.vm_count
